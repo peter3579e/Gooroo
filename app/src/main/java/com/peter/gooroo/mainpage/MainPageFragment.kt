@@ -43,7 +43,6 @@ class MainPageFragment:Fragment() {
             }else {
                 viewModel.inputNumber.value = Integer.parseInt(text.toString())
             }
-            Log.d("MainPageFragment","the input number ${viewModel.inputNumber.value}")
         }
 
         binding.sendButton.setOnClickListener {
@@ -63,7 +62,6 @@ class MainPageFragment:Fragment() {
                 true
             }
             else -> {
-                Log.d("MainPageFragment","run here")
                 Toast.makeText(context,"Please enter a vaild number",Toast.LENGTH_SHORT).show()
                 false
             }

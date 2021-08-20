@@ -1,6 +1,11 @@
 package com.peter.gooroo.data
 
+import android.os.Parcelable
+import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Process(
-    var integer : Int = 0,
-    var processedValue : Long = 0
-)
+    @Json(name = "input") var integer : Int = 0,
+    @Json(name = "processed_input")  var processedValue : Double
+): Parcelable {}
