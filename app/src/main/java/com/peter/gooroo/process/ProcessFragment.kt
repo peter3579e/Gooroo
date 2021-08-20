@@ -63,7 +63,7 @@ class ProcessFragment:Fragment() {
             binding.listView.adapter = ImageAdapter(newList)
 
             count ++
-            
+
             if (count == inputList.size && inputList.size >= 10){
                 for (i in 0..9){
                     tenValue.add(newList[i].processedValue)
