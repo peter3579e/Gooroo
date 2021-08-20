@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainPageFragment">
+
+    <fragment
+        android:id="@+id/processFragment"
+        android:name="com.peter.gooroo.process.ProcessFragment"
+        android:label="ProcessFragment"
+        tools:layout="@layout/process_fragment"
+        >
+        <argument
+            android:name="inputNumber"
+            app:argType="integer">
+        </argument>
+    </fragment>
+    <fragment
+        android:id="@+id/mainPageFragment"
+        android:name="com.peter.gooroo.mainpage.MainPageFragment"
+        android:label="MainPageFragment"
+        tools:layout="@layout/mainpage_fragment"/>
+
+    <action android:id="@+id/navigate_to_process_fragment" app:destination="@id/processFragment"/>
+</navigation>
