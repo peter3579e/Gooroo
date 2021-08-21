@@ -16,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class ProcessViewModel(private val goorooRepository: GoorooRepository, private val number: Int) :ViewModel(){
+class ProcessViewModel(private val goorooRepository: GoorooRepository, private val number: Int) : ViewModel() {
 
     private var _receiveValue = MutableLiveData<Process>()
     val receiveValue: MutableLiveData<Process>
@@ -41,10 +41,10 @@ class ProcessViewModel(private val goorooRepository: GoorooRepository, private v
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    fun intToList(number : Int):List<Process>{
+    fun intToList(number: Int): List<Process> {
         val list = mutableListOf<Process>()
-        for (i in 1..number){
-            list.add(Process(i,0.0))
+        for (i in 1..number) {
+            list.add(Process(i, 0.0))
         }
         return list
     }
@@ -55,19 +55,19 @@ class ProcessViewModel(private val goorooRepository: GoorooRepository, private v
      */
 
     fun getValue(number: Int) {
-            coroutineScope.launch {
-                val result = goorooRepository.getNumberValue(number)
+        coroutineScope.launch {
+            val result = goorooRepository.getNumberValue(number)
 
-                _receiveValue.value = when (result) {
-                    is Result.Success -> {
-                        result.data
-                    }
+            _receiveValue.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                }
 
-                    else -> {
-                        null
-                    }
+                else -> {
+                    null
                 }
             }
+        }
     }
 
     /**

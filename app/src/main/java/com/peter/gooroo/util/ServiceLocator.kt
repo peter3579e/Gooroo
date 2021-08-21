@@ -20,8 +20,8 @@ object ServiceLocator {
     fun provideTasksRepository(): GoorooRepository {
         synchronized(this) {
             return stylishRepository
-                ?: stylishRepository
-                ?: createGoorooRepository()
+                    ?: stylishRepository
+                    ?: createGoorooRepository()
         }
     }
 

@@ -17,11 +17,11 @@ import com.peter.gooroo.util.Util.getString
  * Implementation of the Gooroo source that from network.
  */
 
-object GoorooRemoteDataSource: GoorooDataSource {
+object GoorooRemoteDataSource : GoorooDataSource {
 
     override suspend fun getNumberValue(number: Int): Result<Process> {
 
-        if (!isInternetConnected()){
+        if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
 
@@ -34,7 +34,7 @@ object GoorooRemoteDataSource: GoorooDataSource {
             }
 
             Result.Success(result)
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
         }
@@ -42,7 +42,7 @@ object GoorooRemoteDataSource: GoorooDataSource {
 
     override suspend fun postTenNumber(tenNumber: PostTen): Result<Combine> {
 
-        if (!isInternetConnected()){
+        if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
         }
 
@@ -55,7 +55,7 @@ object GoorooRemoteDataSource: GoorooDataSource {
             }
 
             Result.Success(result)
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
         }

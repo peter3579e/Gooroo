@@ -15,7 +15,7 @@ import com.peter.gooroo.R
 import com.peter.gooroo.data.Process
 import com.peter.gooroo.databinding.ItemNumberCellBinding
 
-class ImageAdapter(private val data:List<Process>):BaseAdapter() {
+class ImageAdapter(private val data: List<Process>) : BaseAdapter() {
 
 
     override fun getCount(): Int {
@@ -23,7 +23,7 @@ class ImageAdapter(private val data:List<Process>):BaseAdapter() {
     }
 
     override fun getItem(position: Int): Any {
-       return data[position]
+        return data[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -33,11 +33,11 @@ class ImageAdapter(private val data:List<Process>):BaseAdapter() {
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val binding = ItemNumberCellBinding.inflate(LayoutInflater.from(parent?.context),parent,false)
+        val binding = ItemNumberCellBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
         /**
          * indicate the first 10 cells is in different colors
          */
-        if (position <= 9){
+        if (position <= 9) {
             binding.cardView.setCardBackgroundColor(GoorooApplication.instance.getColor(R.color.orange_8b572a))
         }
 

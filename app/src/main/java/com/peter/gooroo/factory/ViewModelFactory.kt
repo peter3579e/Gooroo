@@ -11,8 +11,8 @@ import com.peter.gooroo.process.ProcessViewModel
  * Factory for all ViewModels.
  */
 
-class ViewModelFactory (
-): ViewModelProvider.Factory{
+class ViewModelFactory(
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 

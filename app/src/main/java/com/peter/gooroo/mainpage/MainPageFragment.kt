@@ -21,36 +21,37 @@ import com.peter.gooroo.process.ProcessFragmentArgs
 import com.peter.gooroo.process.ProcessViewModel
 import java.util.logging.Logger
 
-class MainPageFragment:Fragment() {
+class MainPageFragment : Fragment() {
 
-    private lateinit var binding:MainpageFragmentBinding
+    private lateinit var binding: MainpageFragmentBinding
+
     /**
      * Lazily initialize our [MainPageViewModel].
      */
-    private val viewModel by viewModels<MainPageViewModel>{getVmFactory()}
+    private val viewModel by viewModels<MainPageViewModel> { getVmFactory() }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
-        binding = MainpageFragmentBinding.inflate(inflater,container,false)
+        binding = MainpageFragmentBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
         //Observe the input from the edit text
         binding.inputNumber.doOnTextChanged { text, start, before, count ->
-            if (text.toString() == ""){
+            if (text.toString() == "") {
                 viewModel.inputNumber.value = 0
-            }else {
+            } else {
                 viewModel.inputNumber.value = Integer.parseInt(text.toString())
             }
         }
 
         //Use Jetpack Navigation to pass argument
         binding.sendButton.setOnClickListener {
-            if (isFinished()){
+            if (isFinished()) {
                 findNavController().navigate(NavigationDirections.navigateToProcessFragment(viewModel.inputNumber.value!!))
             }
         }
@@ -62,13 +63,13 @@ class MainPageFragment:Fragment() {
 
 
     //Check if the user input a valid number
-    private fun isFinished():Boolean{
+    private fun isFinished(): Boolean {
         return when {
-            viewModel.inputNumber.value != null && viewModel.inputNumber.value!! <=  100 && viewModel.inputNumber.value!! > 0-> {
+            viewModel.inputNumber.value != null && viewModel.inputNumber.value!! <= 100 && viewModel.inputNumber.value!! > 0 -> {
                 true
             }
             else -> {
-                Toast.makeText(context,"Please enter a vaild number",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please enter a valid number", Toast.LENGTH_SHORT).show()
                 false
             }
         }

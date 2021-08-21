@@ -10,10 +10,10 @@ import com.peter.gooroo.process.ProcessViewModel
  * Factory for Process ViewModels.
  */
 
-class ProcessViewModelFactory (
-    private val goorooRepository: GoorooRepository,
-    private val number: Int
-        ): ViewModelProvider.Factory{
+class ProcessViewModelFactory(
+        private val goorooRepository: GoorooRepository,
+        private val number: Int
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 

@@ -21,31 +21,30 @@ private const val BASE_URL = "https://exorciser-chatbot.herokuapp.com/"
  * full Kotlin compatibility.
  */
 private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
 private val client = OkHttpClient.Builder()
-    .addInterceptor(HttpLoggingInterceptor().apply {
-        level = when (BuildConfig.LOGGER_VISIABLE) {
-            true -> HttpLoggingInterceptor.Level.BODY
-            false -> HttpLoggingInterceptor.Level.NONE
-        }
-    })
-    .build()
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = when (BuildConfig.LOGGER_VISIABLE) {
+                true -> HttpLoggingInterceptor.Level.BODY
+                false -> HttpLoggingInterceptor.Level.NONE
+            }
+        })
+        .build()
 
 /**
  * Use the Retrofit builder to build a retrofit object using a Moshi converter with our Moshi
  * object.
  */
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
-    .client(client)
-    .build()
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .baseUrl(BASE_URL)
+        .client(client)
+        .build()
 
 /**
- * A public interface that exposes the [getMarketingHots], [getProductList], [getUserProfile],
- * [userSignIn], [checkoutOrder] methods
+ * A public interface that exposes the [getNumberValue] and [postTenNumber] methods
  */
 interface GoorooApiService {
 
@@ -56,8 +55,8 @@ interface GoorooApiService {
 
     @GET("process")
     suspend fun getNumberValue(
-        @Query("input") input: Int? = null
-    ):Process
+            @Query("input") input: Int? = null
+    ): Process
 
     /**
      * Returns a Coroutine [Deferred] [Combine] which can be fetched with await() if in a Coroutine scope.
@@ -67,8 +66,8 @@ interface GoorooApiService {
 
     @POST("combine")
     suspend fun postTenNumber(
-    @Body processed_value: PostTen? = null
-    ):Combine
+            @Body processed_value: PostTen? = null
+    ): Combine
 
 }
 
@@ -76,5 +75,5 @@ interface GoorooApiService {
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object GoorooApi {
-    val retrofitService : GoorooApiService  by lazy { retrofit.create(GoorooApiService::class.java) }
+    val retrofitService: GoorooApiService by lazy { retrofit.create(GoorooApiService::class.java) }
 }

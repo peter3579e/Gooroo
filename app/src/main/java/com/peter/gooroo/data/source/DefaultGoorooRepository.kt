@@ -10,7 +10,7 @@ import com.peter.gooroo.data.Result
  * Concrete implementation to load Stylish sources.
  */
 
-class DefaultGoorooRepository(private val goorooRemoteDataSource: GoorooDataSource):GoorooRepository {
+class DefaultGoorooRepository(private val goorooRemoteDataSource: GoorooDataSource) : GoorooRepository {
     override suspend fun getNumberValue(number: Int): Result<Process> {
         return goorooRemoteDataSource.getNumberValue(number)
     }

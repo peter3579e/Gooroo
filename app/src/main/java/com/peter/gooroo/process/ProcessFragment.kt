@@ -16,7 +16,7 @@ import com.peter.gooroo.data.PostTen
 import com.peter.gooroo.databinding.ProcessFragmentBinding
 import com.peter.gooroo.ext.getVmFactory
 
-class ProcessFragment:Fragment() {
+class ProcessFragment : Fragment() {
 
     private lateinit var binding: ProcessFragmentBinding
 
@@ -24,15 +24,15 @@ class ProcessFragment:Fragment() {
      * Lazily initialize our [ProcessViewModel].
      */
 
-    private val viewModel by viewModels<ProcessViewModel>{getVmFactory(ProcessFragmentArgs.fromBundle(requireArguments()).inputNumber)}
+    private val viewModel by viewModels<ProcessViewModel> { getVmFactory(ProcessFragmentArgs.fromBundle(requireArguments()).inputNumber) }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
-        binding = ProcessFragmentBinding.inflate(inflater,container,false)
+        binding = ProcessFragmentBinding.inflate(inflater, container, false)
 
         binding.viewModel = viewModel
 
@@ -52,7 +52,7 @@ class ProcessFragment:Fragment() {
          * Send the request one by one to server to get processed number
          */
 
-        for (i in viewModel.intToList(viewModel.inputNumber.value!!)){
+        for (i in viewModel.intToList(viewModel.inputNumber.value!!)) {
             viewModel.getValue(i.integer)
         }
 
@@ -60,34 +60,34 @@ class ProcessFragment:Fragment() {
         val tenValue = mutableListOf<Double>()
 
         /**
-         * Received the processed number and sort it by descending
+         * Receive the processed number and sort it by descending
          * Finally send the first ten number to server to get the combined string
          */
         viewModel.receiveValue.observe(viewLifecycleOwner, Observer { it ->
 
-            inputList[it.integer-1] = it
+            inputList[it.integer - 1] = it
             val newList = inputList.sortedByDescending { process ->
                 process.processedValue
             }
 
-            Log.d("ProcessFragment","the value of = $newList")
+            Log.d("ProcessFragment", "the value of = $newList")
 
             binding.listView.adapter = ImageAdapter(newList)
 
-            count ++
+            count++
 
-            if (count == inputList.size && inputList.size >= 10){
-                for (i in 0..9){
+            if (count == inputList.size && inputList.size >= 10) {
+                for (i in 0..9) {
                     tenValue.add(newList[i].processedValue)
                 }
-                Log.d("ProcessFragment","the value of 10 number = $tenValue")
+                Log.d("ProcessFragment", "the value of 10 number = $tenValue")
                 viewModel.postTenValue(PostTen(tenValue))
             }
 
         })
 
         /**
-         * Received the combined number and show it via alert dialog
+         * Receive the combined number and show it via alert dialog
          */
 
         viewModel.combineResult.observe(viewLifecycleOwner, Observer {
