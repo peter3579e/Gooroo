@@ -34,7 +34,9 @@ class ImageAdapter(private val data:List<Process>):BaseAdapter() {
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val binding = ItemNumberCellBinding.inflate(LayoutInflater.from(parent?.context),parent,false)
-
+        /**
+         * indicate the first 10 cells is in different colors
+         */
         if (position <= 9){
             binding.cardView.setCardBackgroundColor(GoorooApplication.instance.getColor(R.color.orange_8b572a))
         }

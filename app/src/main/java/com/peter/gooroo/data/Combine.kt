@@ -6,6 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Combine (
+    val error: String? = null,
     @Json(name = "input") var inputTen : List<Double>,
     @Json(name = "combined_result")  var combine_result : String
     ):Parcelable{}

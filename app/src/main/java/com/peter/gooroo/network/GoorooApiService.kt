@@ -49,11 +49,21 @@ private val retrofit = Retrofit.Builder()
  */
 interface GoorooApiService {
 
+    /**
+     * Returns a Coroutine [Deferred] [Process] which can be fetched with await() if in a Coroutine scope.
+     * The @GET annotation indicates that the "process" endpoint will be requested with the GET HTTP method
+     */
+
     @GET("process")
     suspend fun getNumberValue(
         @Query("input") input: Int? = null
     ):Process
 
+    /**
+     * Returns a Coroutine [Deferred] [Combine] which can be fetched with await() if in a Coroutine scope.
+     * The @POST annotation indicates that the "combine" endpoint will be requested with the POST HTTP method
+     * The @Body annotation indicates that it will be added [processed_value] to the body of the POST HTTP method
+     */
 
     @POST("combine")
     suspend fun postTenNumber(

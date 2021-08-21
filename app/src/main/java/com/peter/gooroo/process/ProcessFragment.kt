@@ -7,21 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.peter.gooroo.GoorooApplication
+import com.peter.gooroo.R
 import com.peter.gooroo.data.PostTen
-import com.peter.gooroo.data.Process
 
 import com.peter.gooroo.databinding.ProcessFragmentBinding
-import com.peter.gooroo.mainpage.MainPageViewModel
+import com.peter.gooroo.ext.getVmFactory
 
 class ProcessFragment:Fragment() {
 
     private lateinit var binding: ProcessFragmentBinding
 
-    private val viewModel: ProcessViewModel by lazy {
-        ViewModelProvider(this).get(ProcessViewModel::class.java)
-    }
+    /**
+     * Lazily initialize our [ProcessViewModel].
+     */
+
+    private val viewModel by viewModels<ProcessViewModel>{getVmFactory(ProcessFragmentArgs.fromBundle(requireArguments()).inputNumber)}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,22 +38,31 @@ class ProcessFragment:Fragment() {
 
         binding.lifecycleOwner = this
 
-        val number = ProcessFragmentArgs.fromBundle(requireArguments()).inputNumber
+        /**
+         * Convert input number to list
+         */
 
-        val inputList = viewModel.intToArray(number).toMutableList()
+        val inputList = viewModel.intToList(viewModel.inputNumber.value!!).toMutableList()
 
         val adapter = ImageAdapter(inputList)
 
         binding.listView.adapter = adapter
 
-        for (i in viewModel.intToArray(number)){
+        /**
+         * Send the request one by one to server to get processed number
+         */
+
+        for (i in viewModel.intToList(viewModel.inputNumber.value!!)){
             viewModel.getValue(i.integer)
         }
 
         var count = 0
         val tenValue = mutableListOf<Double>()
 
-
+        /**
+         * Received the processed number and sort it by descending
+         * Finally send the first ten number to server to get the combined string
+         */
         viewModel.receiveValue.observe(viewLifecycleOwner, Observer { it ->
 
             inputList[it.integer-1] = it
@@ -74,10 +86,14 @@ class ProcessFragment:Fragment() {
 
         })
 
+        /**
+         * Received the combined number and show it via alert dialog
+         */
+
         viewModel.combineResult.observe(viewLifecycleOwner, Observer {
             val alert = AlertDialog.Builder(this.context)
             alert.setMessage(it)
-            alert.setTitle("The Combined Result")
+            alert.setTitle(GoorooApplication.instance.getString(R.string.the_combined_result))
             alert.show()
         })
 

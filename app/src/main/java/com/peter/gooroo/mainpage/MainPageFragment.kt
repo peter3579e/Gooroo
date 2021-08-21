@@ -16,15 +16,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.peter.gooroo.NavigationDirections
 import com.peter.gooroo.databinding.MainpageFragmentBinding
+import com.peter.gooroo.ext.getVmFactory
+import com.peter.gooroo.process.ProcessFragmentArgs
+import com.peter.gooroo.process.ProcessViewModel
 import java.util.logging.Logger
 
 class MainPageFragment:Fragment() {
 
     private lateinit var binding:MainpageFragmentBinding
-    private val viewModel: MainPageViewModel by lazy {
-        ViewModelProvider(this).get(MainPageViewModel::class.java)
-    }
-
+    /**
+     * Lazily initialize our [MainPageViewModel].
+     */
+    private val viewModel by viewModels<MainPageViewModel>{getVmFactory()}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +39,7 @@ class MainPageFragment:Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-
+        //Observe the input from the edit text
         binding.inputNumber.doOnTextChanged { text, start, before, count ->
             if (text.toString() == ""){
                 viewModel.inputNumber.value = 0
@@ -45,6 +48,7 @@ class MainPageFragment:Fragment() {
             }
         }
 
+        //Use Jetpack Navigation to pass argument
         binding.sendButton.setOnClickListener {
             if (isFinished()){
                 findNavController().navigate(NavigationDirections.navigateToProcessFragment(viewModel.inputNumber.value!!))
@@ -56,6 +60,8 @@ class MainPageFragment:Fragment() {
         return binding.root
     }
 
+
+    //Check if the user input a valid number
     private fun isFinished():Boolean{
         return when {
             viewModel.inputNumber.value != null && viewModel.inputNumber.value!! <=  100 && viewModel.inputNumber.value!! > 0-> {
