@@ -7,7 +7,7 @@ import com.peter.gooroo.data.Result
 
 /**
  *
- * Concrete implementation to load Stylish sources.
+ * Concrete implementation to load Gooroo sources.
  */
 
 class DefaultGoorooRepository(private val goorooRemoteDataSource: GoorooDataSource) : GoorooRepository {

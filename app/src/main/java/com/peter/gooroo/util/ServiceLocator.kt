@@ -14,13 +14,13 @@ import com.peter.gooroo.data.source.remote.GoorooRemoteDataSource
 object ServiceLocator {
 
     @Volatile
-    var stylishRepository: GoorooRepository? = null
+    var goorooRepository: GoorooRepository? = null
         @VisibleForTesting set
 
     fun provideTasksRepository(): GoorooRepository {
         synchronized(this) {
-            return stylishRepository
-                    ?: stylishRepository
+            return goorooRepository
+                    ?: goorooRepository
                     ?: createGoorooRepository()
         }
     }

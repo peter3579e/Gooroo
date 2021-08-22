@@ -7,7 +7,7 @@ import com.peter.gooroo.data.Result
 
 /**
  *
- * Main entry point for accessing Stylish sources.
+ * Main entry point for accessing Gooroo sources.
  */
 
 interface GoorooDataSource {

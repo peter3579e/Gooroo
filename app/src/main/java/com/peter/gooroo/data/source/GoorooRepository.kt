@@ -7,7 +7,7 @@ import com.peter.gooroo.data.Result
 
 /**
  *
- * Interface to the Stylish layers.
+ * Interface to the Gooroo layers.
  */
 
 interface GoorooRepository {
