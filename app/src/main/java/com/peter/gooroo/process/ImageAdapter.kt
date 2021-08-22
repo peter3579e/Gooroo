@@ -41,6 +41,17 @@ class ImageAdapter(private val data: List<Process>) : BaseAdapter() {
         if (position <= 9) {
             binding.cardView.setCardBackgroundColor(GoorooApplication.instance.getColor(R.color.orange_8b572a))
         }
+        /**
+         * make the unprocessed cells process value gone
+         */
+
+        if (data[position].processedValue == 0.0){
+            binding.process.visibility = View.GONE
+            binding.processedResult.visibility = View.GONE
+        }else{
+            binding.process.visibility = View.VISIBLE
+            binding.processedResult.visibility = View.VISIBLE
+        }
 
         return binding.root
     }
