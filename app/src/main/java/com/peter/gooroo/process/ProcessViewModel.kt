@@ -71,7 +71,7 @@ class ProcessViewModel(private val goorooRepository: GoorooRepository, private v
     }
 
     /**
-     * track [GoorooRepository.getNumberValue]: -> [DefaultGoorooRepository] : [GoorooRepository] -> [GoorooRemoteDataSource] : [GoorooDataSource]
+     * track [GoorooRepository.postTenNumber]: -> [DefaultGoorooRepository] : [GoorooRepository] -> [GoorooRemoteDataSource] : [GoorooDataSource]
      * @param tenNumber: The first ten number will be taken on the body of http request
      */
 

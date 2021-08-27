@@ -36,6 +36,7 @@ class ProcessFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+
         binding.lifecycleOwner = this
 
         /**
